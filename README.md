@@ -35,7 +35,7 @@ appear in the dropdown without a package update.
 
 ## Install
 
-Once published to npm, install it from the n8n UI:
+Install from the n8n UI:
 
 1. Open **Settings → Community Nodes → Install**.
 2. Enter `n8n-nodes-taodock` and confirm.
