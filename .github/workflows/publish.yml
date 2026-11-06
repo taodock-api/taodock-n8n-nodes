@@ -12,7 +12,7 @@ on:
 
 permissions:
   contents: read
-  id-token: write
+  id-token: write # required for npm Trusted Publishing (OIDC)
 
 jobs:
   publish:
@@ -20,11 +20,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Trusted Publishing requires npm CLI >= 11.5.1 and Node >= 22.14.0.
+      # No package-manager cache on release builds (npm trusted publishing guidance).
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
-          cache: npm
+          node-version: 22.14.0
           registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+
+      - name: Upgrade npm for OIDC support
+        run: npm install -g npm@^11.5.1 && npm --version
 
       - name: Install dependencies
         run: npm ci --ignore-scripts
@@ -51,14 +56,14 @@ jobs:
             exit 1
           fi
 
+      # Auth comes from OIDC (Trusted Publisher configured on npmjs.com for this
+      # repo + this workflow filename). Do NOT set NODE_AUTH_TOKEN here: a token
+      # would take precedence and defeat the purpose. Provenance is generated
+      # automatically for public packages built from public repos via OIDC.
       - name: Publish to npm
         if: startsWith(github.ref, 'refs/tags/v') || (github.event_name == 'workflow_dispatch' && inputs.dry_run == false)
         run: npm publish --ignore-scripts --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Dry run pack
         if: github.event_name == 'workflow_dispatch' && inputs.dry_run
         run: npm publish --ignore-scripts --dry-run
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
