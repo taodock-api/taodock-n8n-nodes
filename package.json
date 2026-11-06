@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-taodock",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "TaoDock AI actions for n8n workflows",
   "license": "MIT",
   "homepage": "https://docs.taodock.com",
