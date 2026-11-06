@@ -132,9 +132,11 @@ git tag v0.1.1
 git push origin main --tags
 ```
 
-The workflow needs the repository secret `NPM_TOKEN`: a granular npm token with
-read-and-write publish access and 2FA bypass enabled. To test the pipeline
-without publishing, run the workflow manually with *Dry run* enabled.
+The workflow authenticates through **npm Trusted Publishing (OIDC)** — there is no
+`NPM_TOKEN` secret to rotate and no long-lived credential in the repository. It
+requires npm CLI >= 11.5.1 and `id-token: write`, both set up in the workflow.
+To test the pipeline without publishing, run the workflow manually with
+*Dry run* enabled.
 
 ## Links
 
