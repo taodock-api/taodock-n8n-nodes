@@ -26,14 +26,24 @@ jobs:
 
       # Trusted Publishing requires npm CLI >= 11.5.1 and Node >= 22.14.0.
       # No package-manager cache on release builds (npm trusted publishing guidance).
+      # Deliberately NO `registry-url`: setup-node would write an .npmrc with
+      # `_authToken=${NODE_AUTH_TOKEN}`, which resolves to an empty token and is
+      # sent in preference to OIDC (registry answers 401/404 instead of using the
+      # trusted publisher). OIDC needs no registry auth entry at all.
       - uses: actions/setup-node@v4
         with:
           node-version: 22.14.0
-          registry-url: https://registry.npmjs.org
           package-manager-cache: false
 
       - name: Upgrade npm for OIDC support
         run: npm install -g npm@^11.5.1 && npm --version
+
+      # Defensive: make sure no stale auth entry (empty or real) can shadow OIDC.
+      - name: Ensure no registry credential is configured
+        run: |
+          npm config delete //registry.npmjs.org/:_authToken || true
+          npm config delete //registry.npmjs.org/:_auth || true
+          if [ -n "$NODE_AUTH_TOKEN" ]; then echo "NODE_AUTH_TOKEN must not be set for OIDC publishing" >&2; exit 1; fi
 
       - name: Install dependencies
         run: npm ci --ignore-scripts
