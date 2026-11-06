@@ -118,6 +118,24 @@ npm run dev         # local node development environment
 Continuous validation runs on every push via the
 [Validate workflow](.github/workflows/validate.yml).
 
+## Releasing
+
+Publishing is automated. Pushing a `v*` tag runs the
+[Publish workflow](.github/workflows/publish.yml), which verifies the tag matches
+`package.json`, runs lint, typecheck, tests and build, then publishes to npm with
+a provenance attestation:
+
+```bash
+npm version patch --no-git-tag-version
+git commit -am "Release v0.1.1"
+git tag v0.1.1
+git push origin main --tags
+```
+
+The workflow needs the repository secret `NPM_TOKEN`: a granular npm token with
+read-and-write publish access and 2FA bypass enabled. To test the pipeline
+without publishing, run the workflow manually with *Dry run* enabled.
+
 ## Links
 
 - [Documentation](https://docs.taodock.com)
