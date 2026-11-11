@@ -127,16 +127,17 @@ a provenance attestation:
 
 ```bash
 npm version patch --no-git-tag-version
-git commit -am "Release v0.1.1"
-git tag v0.1.1
+git commit -am "Release v0.1.3"
+git tag v0.1.3
 git push origin main --tags
 ```
 
-The workflow authenticates through **npm Trusted Publishing (OIDC)** — there is no
-`NPM_TOKEN` secret to rotate and no long-lived credential in the repository. It
-requires npm CLI >= 11.5.1 and `id-token: write`, both set up in the workflow.
-To test the pipeline without publishing, run the workflow manually with
-*Dry run* enabled.
+The workflow uses a repository-scoped npm granular token while the package's
+Trusted Publisher record is being repaired. Releases still run in GitHub Actions
+with `--provenance`, so npm can verify the source repository, commit, and workflow.
+The token is scoped only to the publish step and should be removed after OIDC
+publishing is verified. To test the pipeline without publishing, run the workflow
+manually with *Dry run* enabled.
 
 ## Links
 
