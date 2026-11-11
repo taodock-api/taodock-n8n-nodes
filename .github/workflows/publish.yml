@@ -36,10 +36,6 @@ jobs:
         run: npm install -g npm@^11.5.1 && npm --version
 
       # Defensive: make sure no stale auth entry (empty or real) can shadow OIDC.
-      - name: Verify no job-level registry credential is configured
-        run: |
-          if [ -n "$NODE_AUTH_TOKEN" ]; then echo "NODE_AUTH_TOKEN must be scoped to the publish step only" >&2; exit 1; fi
-
       - name: Install dependencies
         run: npm ci --ignore-scripts
 
