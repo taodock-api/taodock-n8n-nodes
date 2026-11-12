@@ -105,14 +105,14 @@ async function downloadVideo(
 
 export class Taodock implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'TaoDock',
+		displayName: 'Taodock',
 		name: 'taodock',
 		icon: { light: 'file:taodock.svg', dark: 'file:taodock.dark.svg' },
 		group: ['transform'],
 		version: 1,
-		description: 'Use TaoDock AI models in n8n workflows',
+		description: 'Use Taodock AI models in n8n workflows',
 		subtitle: '={{$parameter["resource"] + ": " + $parameter["operation"]}}',
-		defaults: { name: 'TaoDock' },
+		defaults: { name: 'Taodock' },
 		inputs: [NodeConnectionTypes.Main],
 		outputs: [NodeConnectionTypes.Main],
 		usableAsTool: true,
@@ -450,7 +450,7 @@ export class Taodock implements INodeType {
 					);
 					const results = response.data ?? [];
 					if (results.length === 0) {
-						throw new NodeOperationError(this.getNode(), 'TaoDock returned no image data', {
+						throw new NodeOperationError(this.getNode(), 'Taodock returned no image data', {
 							itemIndex,
 						});
 					}

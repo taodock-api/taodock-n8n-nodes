@@ -12,7 +12,7 @@ function executionContext(parameters, apiResponse) {
 			getNodeParameter: (name, _index, fallback) =>
 				Object.prototype.hasOwnProperty.call(parameters, name) ? parameters[name] : fallback,
 			getNode: () => ({
-				name: 'TaoDock',
+				name: 'Taodock',
 				type: 'taodock',
 				typeVersion: 1,
 				position: [0, 0],

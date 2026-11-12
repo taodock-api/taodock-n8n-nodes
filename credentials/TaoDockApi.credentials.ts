@@ -9,7 +9,7 @@ import type {
 export class TaoDockApi implements ICredentialType {
 	name = 'taodockApi';
 
-	displayName = 'TaoDock API';
+	displayName = 'Taodock API';
 
 	icon: Icon = {
 		light: 'file:../nodes/TaoDock/taodock.svg',
