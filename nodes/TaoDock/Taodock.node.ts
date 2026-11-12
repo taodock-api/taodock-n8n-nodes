@@ -390,9 +390,7 @@ export class Taodock implements INodeType {
 	methods = {
 		loadOptions: {
 			async getAuthorizedModels(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
-				const response = await taoDockRequest<unknown>(this, 'GET', 'models', {
-					qs: { scope: 'authorized' },
-				});
+				const response = await taoDockRequest<unknown>(this, 'GET', 'models');
 				return authorizedModelOptions(response);
 			},
 		},

@@ -44,7 +44,6 @@ export class TaoDockApi implements ICredentialType {
 			baseURL: 'https://taodock.com/v1',
 			url: '/models',
 			method: 'GET',
-			qs: { scope: 'authorized' },
 		},
 	};
 }

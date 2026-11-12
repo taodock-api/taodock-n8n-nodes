@@ -27,7 +27,7 @@ export async function taoDockRequest<T>(
 	const request: IHttpRequestOptions = {
 		method,
 		url: `${API_BASE_URL}/${path.replace(/^\/+/, '')}`,
-		headers: { 'X-TaoDock-Client': 'n8n-nodes-taodock/0.1.4' },
+		headers: { 'X-TaoDock-Client': 'n8n-nodes-taodock/0.1.5' },
 		json: options.encoding === undefined,
 		...options,
 	};

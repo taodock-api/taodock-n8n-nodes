@@ -17,7 +17,7 @@ appear in the dropdown without a package update.
 - **Three resources in one node** — `Text`, `Image`, and `Video`, each with its
   own operations and options.
 - **Model discovery from your key** — the model dropdown is loaded from
-  `GET /v1/models?scope=authorized`; nothing is hardcoded.
+  `GET /v1/models`; nothing is hardcoded.
 - **Media-ready output** — generated images and videos are emitted as n8n
   binary data, ready for Google Drive, S3, Slack, HTTP upload, or the next node.
 - **Async video handled for you** — create a task, optionally wait for
@@ -59,7 +59,7 @@ docker exec -it <n8n-container> npm install n8n-nodes-taodock \
 
 1. Create a key at <https://taodock.com/keys>.
 2. In n8n, add a **Taodock API** credential and paste the key.
-3. n8n verifies the credential against `GET https://taodock.com/v1/models?scope=authorized`.
+3. n8n verifies the credential against `GET https://taodock.com/v1/models`.
 
 The key is sent only to `https://taodock.com/v1` as a bearer token.
 
@@ -127,8 +127,8 @@ a provenance attestation:
 
 ```bash
 npm version patch --no-git-tag-version
-git commit -am "Release v0.1.4"
-git tag v0.1.4
+git commit -am "Release v0.1.5"
+git tag v0.1.5
 git push origin main --tags
 ```
 
